@@ -27,7 +27,7 @@ export const NewsList = ({ news, filter, onLoadMore }) => {
     <div>
       {listToRender?.map(
         (item, index) =>
-          news && <ItemCard key={item.id} index={index} item={item}></ItemCard>
+          item && <ItemCard key={item.id} index={index} item={item}></ItemCard>
       )}
     </div>
   );

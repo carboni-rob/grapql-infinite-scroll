@@ -34,7 +34,7 @@ const useStyles = makeStyles({
     margin: "5px",
   },
   link: {
-    color: "initial",
+    color: "#e96b22",
     textDecoration: "none",
   },
 });

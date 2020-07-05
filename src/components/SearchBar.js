@@ -10,7 +10,7 @@ export const SearchBar = ({ setFilter }) => {
 
   return (
     <AppBar position="sticky">
-      <Toolbar>
+      <Toolbar className={classes.toolbar}>
         <div className={classes.search}>
           <div className={classes.searchIcon}>
             <SearchIcon />
@@ -25,6 +25,10 @@ export const SearchBar = ({ setFilter }) => {
             onChange={(event) => setFilter(event.target.value)}
           />
         </div>
+        <img
+          src="https://kairostech.io/wp-content/uploads/2020/06/White-copy.png"
+          alt="Kairos logo"
+        />
       </Toolbar>
     </AppBar>
   );
@@ -32,6 +36,11 @@ export const SearchBar = ({ setFilter }) => {
 
 const useStyles = makeStyles((theme) =>
   createStyles({
+    toolbar: {
+      display: "flex",
+      justifyContent: "space-between",
+      backgroundColor: "#000",
+    },
     search: {
       position: "relative",
       borderRadius: theme.shape.borderRadius,
