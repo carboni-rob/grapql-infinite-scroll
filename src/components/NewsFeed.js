@@ -7,7 +7,7 @@ import { SearchBar } from "./SearchBar";
 
 const ITEMS_LIMIT = 30;
 
-const FEED_QUERY = gql`
+export const FEED_QUERY = gql`
   query newStories($limit: Int, $offset: Int) {
     hn {
       newStories(limit: $limit, offset: $offset) {
@@ -28,12 +28,16 @@ const FEED_QUERY = gql`
 export const NewsFeed = () => {
   const [filter, setFilter] = React.useState("");
 
-  const { data, fetchMore } = useQuery(FEED_QUERY, {
+  const { data, error, fetchMore } = useQuery(FEED_QUERY, {
     variables: {
       limit: ITEMS_LIMIT,
       offset: 0,
     },
   });
+
+  if (error) {
+    return <p>Error while fetching data</p>;
+  }
 
   return data ? (
     <>
