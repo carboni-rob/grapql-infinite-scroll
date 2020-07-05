@@ -13,10 +13,13 @@ const FEED_QUERY = gql`
       newStories(limit: $limit, offset: $offset) {
         id
         title
-        by
         timeISO
         score
         url
+        by {
+          id
+        }
+        type
       }
     }
   }

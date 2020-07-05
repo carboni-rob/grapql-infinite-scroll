@@ -1,4 +1,5 @@
 import React from "react";
+import { ItemCard } from "./ItemCard";
 
 export const NewsList = ({ news, filter, onLoadMore }) => {
   const scrollHandler = () => {
@@ -24,11 +25,10 @@ export const NewsList = ({ news, filter, onLoadMore }) => {
 
   return (
     <div>
-      <ul>
-        {listToRender?.map(
-          (news) => news && <li key={news.id}>{news.title}</li>
-        )}
-      </ul>
+      {listToRender?.map(
+        (item, index) =>
+          news && <ItemCard key={item.id} index={index} item={item}></ItemCard>
+      )}
     </div>
   );
 };
