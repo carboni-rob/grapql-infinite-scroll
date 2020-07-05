@@ -1,5 +1,5 @@
 import React from "react";
-import { NewsCard } from "./NewsList";
+import { NewsList } from "./NewsList";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 import uniqby from "lodash.uniqby";
@@ -18,6 +18,8 @@ const FEED_QUERY = gql`
 `;
 
 export const NewsFeed = () => {
+  const [filter, setFilter] = React.useState("");
+
   const { data, fetchMore } = useQuery(FEED_QUERY, {
     variables: {
       limit: ITEMS_LIMIT,
@@ -26,31 +28,35 @@ export const NewsFeed = () => {
   });
 
   return data ? (
-    <NewsCard
-      news={data.hn.newStories}
-      onLoadMore={() => {
-        fetchMore({
-          variables: {
-            offset: data.hn.newStories.length,
-          },
-          updateQuery: (prev, { fetchMoreResult }) => {
-            if (!fetchMoreResult) {
-              return prev;
-            }
+    <>
+      <input onChange={(event) => setFilter(event.target.value)} />
+      <NewsList
+        filter={filter}
+        news={data.hn.newStories}
+        onLoadMore={() => {
+          fetchMore({
+            variables: {
+              offset: data.hn.newStories.length,
+            },
+            updateQuery: (prev, { fetchMoreResult }) => {
+              if (!fetchMoreResult) {
+                return prev;
+              }
 
-            return Object.assign({}, prev, {
-              hn: {
-                newStories: uniqby(
-                  [...prev.hn.newStories, ...fetchMoreResult.hn.newStories],
-                  "id"
-                ),
-                __typename: "HackerNewsAPI",
-              },
-            });
-          },
-        });
-      }}
-    />
+              return Object.assign({}, prev, {
+                hn: {
+                  newStories: uniqby(
+                    [...prev.hn.newStories, ...fetchMoreResult.hn.newStories],
+                    "id"
+                  ),
+                  __typename: "HackerNewsAPI",
+                },
+              });
+            },
+          });
+        }}
+      />
+    </>
   ) : (
     <p>Loading...</p>
   );

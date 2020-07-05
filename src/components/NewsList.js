@@ -1,6 +1,6 @@
 import React from "react";
 
-export const NewsCard = ({ news, onLoadMore }) => {
+export const NewsList = ({ news, filter, onLoadMore }) => {
   const scrollHandler = () => {
     if (
       window.innerHeight + window.scrollY >=
@@ -18,10 +18,16 @@ export const NewsCard = ({ news, onLoadMore }) => {
     };
   });
 
+  const listToRender = filter.length
+    ? news.filter((item) => item.title.includes(filter))
+    : news;
+
   return (
     <div>
       <ul>
-        {news?.map((news) => news && <li key={news.id}>{news.title}</li>)}
+        {listToRender?.map(
+          (news) => news && <li key={news.id}>{news.title}</li>
+        )}
       </ul>
     </div>
   );
