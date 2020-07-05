@@ -5,8 +5,6 @@ import { createHttpLink } from "apollo-link-http";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { NewsFeed } from "./NewsFeed";
 
-import "../styles/App.css";
-
 const httpLink = createHttpLink({
   uri: "https://www.graphqlhub.com/graphql",
 });
