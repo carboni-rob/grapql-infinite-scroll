@@ -3,6 +3,7 @@ import { NewsList } from "./NewsList";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 import uniqby from "lodash.uniqby";
+import { SearchBar } from "./SearchBar";
 
 const ITEMS_LIMIT = 30;
 
@@ -12,6 +13,10 @@ const FEED_QUERY = gql`
       newStories(limit: $limit, offset: $offset) {
         id
         title
+        by
+        timeISO
+        score
+        url
       }
     }
   }
@@ -29,7 +34,7 @@ export const NewsFeed = () => {
 
   return data ? (
     <>
-      <input onChange={(event) => setFilter(event.target.value)} />
+      <SearchBar setFilter={setFilter} />
       <NewsList
         filter={filter}
         news={data.hn.newStories}

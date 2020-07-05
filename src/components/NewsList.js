@@ -19,7 +19,7 @@ export const NewsList = ({ news, filter, onLoadMore }) => {
   });
 
   const listToRender = filter.length
-    ? news.filter((item) => item.title.includes(filter))
+    ? news.filter((item) => item.title.toLowerCase().includes(filter))
     : news;
 
   return (
