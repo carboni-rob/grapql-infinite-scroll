@@ -3,7 +3,7 @@ import { ApolloClient } from "apollo-client";
 import { ApolloProvider } from "react-apollo";
 import { createHttpLink } from "apollo-link-http";
 import { InMemoryCache } from "apollo-cache-inmemory";
-import { CardList } from "./CardList";
+import { NewsFeed } from "./NewsFeed";
 
 import "../styles/App.css";
 
@@ -20,7 +20,7 @@ class App extends Component {
   render() {
     return (
       <ApolloProvider client={client}>
-        <CardList />
+        <NewsFeed />
       </ApolloProvider>
     );
   }

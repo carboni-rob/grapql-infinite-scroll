@@ -4,7 +4,7 @@ export const NewsCard = ({ news, onLoadMore }) => {
   const scrollHandler = () => {
     if (
       window.innerHeight + window.scrollY >=
-      document.body.offsetHeight - 300
+      document.body.offsetHeight - 500
     ) {
       onLoadMore();
     }

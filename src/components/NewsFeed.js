@@ -1,5 +1,5 @@
 import React from "react";
-import { NewsCard } from "./NewsCard";
+import { NewsCard } from "./NewsList";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 import uniqby from "lodash.uniqby";
@@ -17,7 +17,7 @@ const FEED_QUERY = gql`
   }
 `;
 
-export const CardList = () => {
+export const NewsFeed = () => {
   const { data, fetchMore } = useQuery(FEED_QUERY, {
     variables: {
       limit: ITEMS_LIMIT,
@@ -34,7 +34,9 @@ export const CardList = () => {
             offset: data.hn.newStories.length,
           },
           updateQuery: (prev, { fetchMoreResult }) => {
-            if (!fetchMoreResult) return prev;
+            if (!fetchMoreResult) {
+              return prev;
+            }
 
             return Object.assign({}, prev, {
               hn: {
@@ -49,5 +51,7 @@ export const CardList = () => {
         });
       }}
     />
-  ) : null;
+  ) : (
+    <p>Loading...</p>
+  );
 };
